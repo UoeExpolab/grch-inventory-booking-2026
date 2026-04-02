@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-Content-Type-Options" content="nosniff">
+	<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self'">
+	<title>Inventory Booking System</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="bg-shape shape-a" aria-hidden="true"></div>
+	<div class="bg-shape shape-b" aria-hidden="true"></div>
+
+    <div id="audit-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Audit Log</h2>
+                <button id="close-audit-modal" class="close-btn" type="button">×</button>
+            </div>
+            <div id="audit-log-list" class="audit-log-list"></div>
+        </div>
+    </div>
+		<section class="panel intro reveal">
+			<p class="eyebrow">Static Frontend</p>
+			<h1>Inventory Reservation</h1>
+			<p>
+				Built for GitHub Pages. Data is stored in local browser storage, so each browser keeps its own reservations.
+			</p>
+			<div class="stats">
+				<span>Total Reservations</span>
+				<strong id="reservation-count">0</strong>
+			</div>
+			<p id="message" class="message" data-type="info" role="status" aria-live="polite">
+				Ready.
+			</p>
+		</section>
+
+		<section class="panel form-panel reveal delay-1">
+			<h2>Create Reservation</h2>
+			<form id="booking-form" novalidate>
+				<label>
+					Team Name
+					<input id="team-name" name="team" type="text" maxlength="64" autocomplete="organization" required>
+				</label>
+
+				<div class="row">
+					<label>
+						Date
+						<input id="booking-date" name="date" type="date" required>
+					</label>
+					<label>
+						Time Slot
+						<select id="time-slot" name="slot" required></select>
+					</label>
+				</div>
+
+				<fieldset>
+					<legend>Inventory</legend>
+					<div id="inventory-options" class="inventory-grid"></div>
+				</fieldset>
+
+				<button type="submit" class="primary">Book Inventory</button>
+			</form>
+		</section>
+
+		<section class="panel admin-panel reveal delay-2">
+			<h2>Admin Controls</h2>
+			<p class="small-text">
+                Tokens use PBKDF2 (100k iterations) + salt. All admin actions are logged immutably.
+            </p>
+            <p id="admin-state" class="admin-state">No admin token set</p>
+
+            <form id="token-form" class="token-form" novalidate>
+                <label>
+                    Admin Token
+                    <input id="token-input" type="password" minlength="12" autocomplete="off" placeholder="Min 12 characters">
+                </label>
+
+                <div class="token-actions">
+                    <button id="set-token" type="submit">Set / Replace Token</button>
+                    <button id="unlock-admin" type="submit">Unlock Admin</button>
+                    <button id="lock-admin" type="button">Lock</button>
+                </div>
+            </form>
+
+            <button id="clear-reservations" class="danger" type="button" disabled>
+                Clear All Reservations
+            </button>
+            <button id="view-audit-log" class="secondary small" type="button" disabled style="margin-top: 0.5rem;">
+                View Audit Log
+		<section class="panel list-panel reveal delay-3">
+			<h2>Reservations</h2>
+			<div id="reservations-list" class="reservations-list"></div>
+		</section>
+	</main>
+
+	<script src="app.js" defer></script>
+</body>
+</html>
