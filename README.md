@@ -11,7 +11,8 @@ A fully static, client-side inventory reservation system with enterprise-grade s
 - **Token-Protected Admin** — Separate session for admin features (15-minute timeout)
 - **Input Validation & Sanitization** — XSS/injection prevention
 - **CSP Headers** — Content Security Policy meta tags
-- **No Credentials Exposed** — API keys live only in GitHub Secrets
+- **No Credentials Exposed** — Tokens live only in GitHub Secrets (never in code)
+- **Modern Airtable Auth** — Uses Personal Access Tokens (PAT), API keys deprecated since Jan 2024
 
 ## 🚀 Deployment to GitHub Pages
 
@@ -41,24 +42,28 @@ If you want to **sync reservations from your Airtable base** automatically:
 
 #### 3a. Get Your Airtable Credentials
 
+**Note**: Airtable deprecated API keys in January 2024. We use **Personal Access Tokens (PAT)**, the current recommended method.
+
 1. Log into [Airtable](https://airtable.com)
-2. Go to **Account** → **API** → [Generate Token](https://airtable.com/create/tokens)
-   - Select **Generate token**
-   - Name: "GitHub Booking Sync"
-   - **Scopes**: tables:read (read-only is safer)
-   - Apply to: Your base(s)
-   - Click **Create token** and copy it
+2. Go to **Account** → **Tokens** (under Developer section)
+   - Click **Create new token**
+   - **Name**: "GitHub Booking Sync"
+   - **Scopes**: Select ✅ `data.table:read` (read-only for safety)
+   - **Base access**: Under "Bases", select your workspace and check your **Inventory Reservations base**
+   - Click **Create token** and **copy it immediately** (you won't see it again)
 3. Find your **Base ID**:
    - Open your base in Airtable
    - Click **Help** → **API documentation**
    - Your Base ID is shown (looks like `appXXXXXXXXXXXXXX`)
+
+**⚠️ Security**: This token is like a password. Never share it or commit it to GitHub.
 
 #### 3b. Add GitHub Secrets
 
 1. Go to your GitHub repo → **Settings** → **Secrets and variables** → **Actions**
 2. Click **New repository secret**
 3. Add two secrets:
-   - **Name**: `AIRTABLE_API_KEY` → **Value**: (your token from 3a)
+   - **Name**: `AIRTABLE_PERSONAL_TOKEN` → **Value**: (your Personal Access Token from 3a)
    - **Name**: `AIRTABLE_BASE_ID` → **Value**: (your base ID from 3a)
 4. Click **Add secret**
 

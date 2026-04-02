@@ -17,12 +17,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Fetch Airtable Data
+      - name: Fetch Airtable Data (via Personal Access Token)
         id: airtable
         run: |
           curl -X GET \
             "https://api.airtable.com/v0/${{ secrets.AIRTABLE_BASE_ID }}/Inventory%20Reservations" \
-            -H "Authorization: Bearer ${{ secrets.AIRTABLE_API_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.AIRTABLE_PERSONAL_TOKEN }}" \
             -o airtable_raw.json
 
       - name: Transform Airtable Data
@@ -44,3 +44,4 @@ jobs:
           head -100 airtable_raw.json || echo "File not found"
           echo "=== data.json ==="
           head -100 data.json || echo "File not found"
+
