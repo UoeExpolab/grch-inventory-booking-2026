@@ -59,11 +59,7 @@ body {
 	width: min(1100px, 100%);
 	margin: 0 auto;
 	display: grid;
-	gap: 1rem;
-	grid-template-columns: repeat(12, minmax(0, 1fr));
-}
-
-.panel {
+    gap: 1.5rem;
 	background: color-mix(in srgb, var(--paper) 92%, #ffffff 8%);
 	border: 1px solid rgba(21, 34, 56, 0.09);
 	border-radius: var(--radius);
@@ -324,6 +320,10 @@ button.small {
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 	}
 }
+.admin-panel.hidden {
+    display: none;
+}
+
 .modal {
     position: fixed;
     top: 0;

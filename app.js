@@ -619,6 +619,15 @@ function init() {
     updateAvailableInventoryHints();
     updateAdminUi();
 
+    // Secret key to reveal admin panel
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "~") { // Tilde key
+            const adminPanel = document.querySelector(".admin-panel");
+            adminPanel.classList.toggle("hidden");
+            setStatus("Admin panel toggled. Use your token to unlock.", "info");
+        }
+    });
+
     els.form.addEventListener("submit", handleCreateBooking);
     els.date.addEventListener("change", updateAvailableInventoryHints);
     els.slot.addEventListener("change", updateAvailableInventoryHints);
